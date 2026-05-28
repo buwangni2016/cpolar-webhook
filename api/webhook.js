@@ -15,15 +15,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Trigger GitHub Actions workflow
-    const ghToken = process.env.GH_PAT;
+    // Trigger GitHub Actions workflow via Maton gateway
+    const matonKey = process.env.MATON_API_KEY;
     const repo = process.env.GH_REPO || 'buwangni2016/cpolar-monitor';
     const resp = await fetch(
-      `https://api.github.com/repos/${repo}/actions/workflows/monitor.yml/dispatches`,
+      `https://gateway.maton.ai/github/repos/${repo}/actions/workflows/monitor.yml/dispatches`,
       {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${ghToken}`,
+          'Authorization': `Bearer ${matonKey}`,
           'Accept': 'application/vnd.github.v3+json',
           'Content-Type': 'application/json',
         },
